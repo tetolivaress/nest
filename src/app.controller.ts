@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -13,6 +13,16 @@ export class AppController {
   @Get('/test')
   getTest(): { id: number; message: string } {
     return { id: 1, message: 'Hello World' };
+  }
+
+  @Get('/test/query')
+  getTestQuery(@Query('param') param: string): string {
+    return `Hello World, param => ${param}`;
+  }
+
+  @Get('/test/default-query-value')
+  getTestDefaultQueryValue(@Query('param') param = 'default'): string {
+    return `Hello World, param => ${param}`;
   }
 
   @Get('/test/:param')
