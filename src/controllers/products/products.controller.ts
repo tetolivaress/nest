@@ -7,7 +7,12 @@ import {
   Body,
   Put,
   Delete,
+  HttpCode,
+  HttpStatus,
+  Res,
 } from '@nestjs/common';
+
+import { Response } from 'express';
 
 @Controller('products')
 export class ProductsController {
@@ -24,10 +29,21 @@ export class ProductsController {
     return `I am a filter`;
   }
 
+  @Get('express')
+  getProductUsingExpress(@Res() response: Response) {
+    return response.status(200).send({ message: `returning using express` });
+  }
+
   @Get(':productId')
-  getProduct(@Param('productId') productId: string): string {
+  @HttpCode(HttpStatus.ACCEPTED)
+  getProduct(
+    @Res() response: Response,
+    @Param('productId') productId: string,
+  ): string {
+    //response.status(200).send({ message: 'ok' }); //to response like express
     return `product ${productId}`;
   }
+
 
   @Post()
   Create(@Body() payload: any) {
