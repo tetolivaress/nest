@@ -33,4 +33,19 @@ export class ProductsService {
 
     return newProduct;
   }
+
+  update(id: number, payload: any): Product {
+    const productIndex = this.products.findIndex((item) => item.id === id);
+
+    if (productIndex === -1) {
+      return null;
+    }
+
+    this.products[productIndex] = {
+      ...this.products[productIndex],
+      ...payload,
+    };
+
+    return this.products[productIndex];
+  }
 }
