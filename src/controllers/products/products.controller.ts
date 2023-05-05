@@ -10,11 +10,13 @@ import {
   HttpCode,
   HttpStatus,
   Res,
-  ParseIntPipe,
+  // ParseIntPipe,
 } from '@nestjs/common';
 
 import { Response } from 'express';
 import { ProductsService } from 'src/services/products.service';
+import { ParseIntPipe } from '../../commom/parse-int-pipe/parse-int-pipe.pipe';
+// import { Product } from '../../entities/product.entity';
 
 @Controller('products')
 export class ProductsController {
@@ -42,7 +44,8 @@ export class ProductsController {
   getProduct(@Param('productId', ParseIntPipe) productId: number) {
     //response.status(200).send({ message: 'ok' }); //to response like express
     // return `product ${productId}`;
-    return this.productsService.findOne(productId);
+    const product = this.productsService.findOne(productId);
+    return product;
   }
 
   @Post()

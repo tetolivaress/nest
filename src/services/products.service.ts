@@ -21,11 +21,10 @@ export class ProductsService {
 
   findOne(id: number): Product {
     const product = this.products.find((item) => item.id === id);
-
+    // console.log(product);
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`);
     }
-
     return this.products.find((item) => item.id === id);
   }
 
