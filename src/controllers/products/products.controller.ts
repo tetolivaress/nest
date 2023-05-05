@@ -10,6 +10,7 @@ import {
   HttpCode,
   HttpStatus,
   Res,
+  ParseIntPipe,
 } from '@nestjs/common';
 
 import { Response } from 'express';
@@ -38,10 +39,10 @@ export class ProductsController {
   @Get(':productId')
   // @HttpCode(HttpStatus.ACCEPTED) // with this only retur the code without data (by confirm)
   // getProduct(@Res() response: Response, @Param('productId') productId: string) {
-  getProduct(@Param('productId') productId: string) {
+  getProduct(@Param('productId', ParseIntPipe) productId: number) {
     //response.status(200).send({ message: 'ok' }); //to response like express
     // return `product ${productId}`;
-    return this.productsService.findOne(+productId);
+    return this.productsService.findOne(productId);
   }
 
   @Post()
